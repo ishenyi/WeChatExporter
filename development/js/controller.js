@@ -17,7 +17,7 @@ WechatBackupControllers.controller('TopBarController', ["$scope", "$rootScope", 
 
 WechatBackupControllers.controller('Soft1Controller', ["$scope", "$state", function ($scope, $state) {
     $scope.page = "entry page";
-    $scope.dPath = "";
+    $scope.dPath = "/Users/shenyi/File/iphone7p/wechat/Documents";
     $scope.myFriends = {};
     $scope.onFileChange = function (files) {
         console.log(files);
@@ -36,9 +36,10 @@ WechatBackupControllers.controller('Soft2Controller', ["$scope", "$state", "$sta
     console.log($stateParams);
     $scope.page = "entry page";
     $scope.dPath = $stateParams.documentsPath;
+    //$scope.targetPath.rootFolder = "/Users/shenyi/File/iphone7p/wechat/chats";
     $scope.meInfo = JSON.parse($stateParams.meInfo);
     $scope.otherInfo = JSON.parse($stateParams.otherInfo);
-    // alert($scope.otherInfo);
+    console.log("otherinfo: "+$scope.otherInfo);
 
     $scope.roomInfo = JSON.parse($stateParams.roomInfo)
     $scope.otherWechatID = $stateParams.otherWechatID;
@@ -277,8 +278,8 @@ WechatBackupControllers.controller('Soft2Controller', ["$scope", "$state", "$sta
         let request = require("request");
         request($scope.meInfo['headUrl']).pipe(fs.createWriteStream(path.join($scope.targetPath.resourceFolder, 'me.png')));
         if (!$scope.roomInfo.isChatRoom) {
-            // alert($scope.otherWechatID);
-            request($scope.otherInfo[$scope.otherWechatID]['headUrl']).pipe(fs.createWriteStream(path.join($scope.targetPath.resourceFolder, 'other.png')));
+            console.log("otherWechatID: "+ $scope.otherWechatID);
+            //request($scope.otherInfo[$scope.otherWechatID]['headUrl']).pipe(fs.createWriteStream(path.join($scope.targetPath.resourceFolder, 'other.png')));
         }
         //  3.连接mm.sqlite数据库
         let sqlite3 = require('sqlite3');
@@ -401,7 +402,7 @@ WechatBackupControllers.controller('Soft2Controller', ["$scope", "$state", "$sta
 }]);
 WechatBackupControllers.controller('Soft3Controller', ["$scope", "$state", function ($scope, $state) {
     $scope.page = "entry page";
-    $scope.outputPath = "";
+    $scope.outputPath = "/Users/shenyi/File/iphone7p/wechat/chats/amy";
     $scope.generateHtml = false;
     $scope.showQqemoji = true;
     $scope.linesPerPage = 100;
