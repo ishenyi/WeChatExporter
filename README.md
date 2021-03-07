@@ -1,30 +1,23 @@
 # WeChatExporter
 
+* forked from tsycnh/WeChatExporter
 
-2020年10月23日：  
+2021-03-06 本地build成功，支持提取微信聊天记录，展示聊天记录
 
-这个项目从创建到现在已经三年了，最开始只是为了自己备份聊天记录查看用。后来到现在越来越多的人开始star这个项目，到目前已经近600个star了。fork也近100个。
-说实话这个项目我做得还有非常多不完善的地方。比如消息类别显示的并不全面，不支持Windows与安卓等等。然后对于新手来说操作也不是特别的方便。
-这些问题我也是非常想解决掉，但无奈时间和精力不允许，项目基本处于放弃状态。
-等我有时间，闲下来了，可能会继续把这个项目完善一下。
-当然，开源最伟大的精神就是互相合作。这个项目非常需要大家的PR。
-可能大家提的issue我无力解答，但是PR我一定会第一时间查看并回复。  
+iphone导出微信聊天记录，备份微信聊天记录，mac系统
 
-以上。
+```
+system info: 
+ProductName:	Mac OS X
+ProductVersion:	10.15.7
+BuildVersion:	19H2
 
+node version: v10.24.0
 
+nwjs info: 0.40.2
+sqlite3 binding: node-webkit-v0.40.2-darwin-x64
+```
 
-===
-
-A software to export wechat records, which you can review your chattings on your computer.  
-If there is any non-Chinese user trying to use this software, open an issue let me know, I will add an English version.  
-
-===
-
-微信聊天记录导出工具。无需越狱手机，即可导出备份微信聊天记录。目前支持文字、语音、图片、视频的查看。
-项目基于nodejs实现，框架采用angularjs
-
-目前支持导出iOS系统导出，软件运行仅限MacOS系统。（其实安卓和Windows系统也能用，只是现在懒得适配多平台）
 
 使用方法：
 ### 一、准备工作
@@ -45,7 +38,7 @@ Step3:安装nwjs 下载地址：https://dl.nwjs.io
 
 ### 二、运行软件
 
-Step1:下载项目 `git clone https://github.com/tsycnh/WeChatExporter`
+Step1: 下载项目 `git clone https://github.com/tsycnh/WeChatExporter`
 
 Step2: `cd path/to/WeChatExporter`
 
@@ -55,9 +48,10 @@ Step4: `npm install`
 
 Step5: 编译sqlite3.
 
-1.  安装Xcode（AppStore 直接安装）
-2.  `sudo npm install -g node-gyp`
-3.	`npm install sqlite3 --build-from-source --runtime=node-webkit --target_arch=x64 --target=0.40.1 --python=/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7 --registry=https://registry.npm.taobao.org`
+1. 安装Xcode（AppStore 直接安装）
+2. `sudo npm install -g node-gyp`
+3. 补充 _by ishenyi_，需要安装 `npm install -g nw-gyp`;
+3  `npm install sqlite3 --build-from-source --runtime=node-webkit --target_arch=x64 --target=0.40.1 --python=/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7 --registry=https://registry.npm.taobao.org`
 
 注意事项：
 * 【必须】target_arch参数为ia32或x64 ，分别对应32位或64位的nwjs
@@ -65,39 +59,17 @@ Step5: 编译sqlite3.
 * 【可选】Python为自定义的路径，必须为2.7版本。默认可不指定此参数。
 * 【可选】Registry为国内镜像节点，下载不顺可尝试添加此参数 
 
-4.	如果出现   
-```
-xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance  
-```
-
-则是未安装Xcode或Xcode相关设置问题造成的。
-
-安装之。安装完之后在终端输入
-
-`sudo xcodebuild -license`
-
-按[space]全部读完后输入agree
-
-回到第3.步
-
-如仍无法解决，可参考此：https://stackoverflow.com/questions/17980759/xcode-select-active-developer-directory-error/40819686#40819686
-
-5.	编译完成后会在如下目录出现已编译好的文件。
+5. 编译完成后会在如下目录出现已编译好的文件。
 `Path/to/WeChatExporter/development/node_modules/sqlite3/lib/binding/node-webkit-v0.40.1-darwin-x64/node_sqlite3.node`
 用的nwjs版本不同，生成的文件也不一样。
 
-\*懒人看这↓*\
-如果你用库版本为以下之一:  
-nodejs==8.11.3 nwjs==0.32.1  
-nodejs==10.16.3 nwjs==0.40.1  
-
-我已经将编译好的node_sqlite3.node文件放在了development/framework之下，将对应版本的文件夹拷贝到`Path/to/WeChatExporter/development/node_modules/sqlite3/lib/binding/`即可
-
-Step6: `/path/to/nw/nwjs.app/Contents/MacOS/nwjs .`
+Step6: `/path/to/nw/nwjs.app/Contents/MacOS/nwjs .` 这里`.`指的路径工程development路径
 
 即可运行导出工具。
+
 ### 三、使用软件
-工具由两部分组成：
+
+工具由两部分组成：(作者写了4各功能，我全部打开了，见index.html)
 
 1.解析并导出数据
 
